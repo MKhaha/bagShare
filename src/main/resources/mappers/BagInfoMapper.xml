@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ywgroup.iecloud.bagshare.dao.BagInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ywgroup.iecloud.bagshare.pojo.BagInfo" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="brand" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="major_picture_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="minor_picture_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bag_information" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, brand, price, major_picture_address, minor_picture_address, bag_information, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bag_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bag_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ywgroup.iecloud.bagshare.pojo.BagInfo" >
+    insert into bag_information (id, name, brand, 
+      price, major_picture_address, minor_picture_address, 
+      bag_information, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{majorPictureAddress,jdbcType=VARCHAR}, #{minorPictureAddress,jdbcType=VARCHAR}, 
+      #{bagInformation,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ywgroup.iecloud.bagshare.pojo.BagInfo" >
+    insert into bag_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="majorPictureAddress != null" >
+        major_picture_address,
+      </if>
+      <if test="minorPictureAddress != null" >
+        minor_picture_address,
+      </if>
+      <if test="bagInformation != null" >
+        bag_information,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="majorPictureAddress != null" >
+        #{majorPictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="minorPictureAddress != null" >
+        #{minorPictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bagInformation != null" >
+        #{bagInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ywgroup.iecloud.bagshare.pojo.BagInfo" >
+    update bag_information
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="majorPictureAddress != null" >
+        major_picture_address = #{majorPictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="minorPictureAddress != null" >
+        minor_picture_address = #{minorPictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bagInformation != null" >
+        bag_information = #{bagInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ywgroup.iecloud.bagshare.pojo.BagInfo" >
+    update bag_information
+    set name = #{name,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      major_picture_address = #{majorPictureAddress,jdbcType=VARCHAR},
+      minor_picture_address = #{minorPictureAddress,jdbcType=VARCHAR},
+      bag_information = #{bagInformation,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
