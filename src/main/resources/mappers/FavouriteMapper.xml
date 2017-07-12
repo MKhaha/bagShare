@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ywgroup.iecloud.bagshare.dao.FavouriteMapper" >
+  <resultMap id="BaseResultMap" type="com.ywgroup.iecloud.bagshare.pojo.Favourite" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="userid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="bagid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, bagid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from favourite
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from favourite
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ywgroup.iecloud.bagshare.pojo.Favourite" >
+    insert into favourite (id, userid, bagid
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{bagid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ywgroup.iecloud.bagshare.pojo.Favourite" >
+    insert into favourite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="bagid != null" >
+        bagid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="bagid != null" >
+        #{bagid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ywgroup.iecloud.bagshare.pojo.Favourite" >
+    update favourite
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="bagid != null" >
+        bagid = #{bagid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ywgroup.iecloud.bagshare.pojo.Favourite" >
+    update favourite
+    set userid = #{userid,jdbcType=VARCHAR},
+      bagid = #{bagid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUidAndBid" resultType="integer" parameterType="map">
+    SELECT COUNT(1)
+    FROM favourite
+    where userid = #{uid}
+    And bagid = #{bid}
+  </select>
+
+  <delete id="deleteByUidAndBid" parameterType="map">
+    DELETE FROM  favourite
+    where userid = #{uid}
+    and bagid = #{bid}
+  </delete>
+
+  <insert id="insertByUidAndBid" parameterType="map">
+    insert into favourite(userid,bagid)
+    VALUES (#{uid},#{bid});
+  </insert>
+</mapper>

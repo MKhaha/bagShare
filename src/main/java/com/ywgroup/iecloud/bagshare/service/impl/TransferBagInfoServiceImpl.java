@@ -2,11 +2,14 @@ package com.ywgroup.iecloud.bagshare.service.impl;
 
 import com.ywgroup.iecloud.bagshare.dao.BagCollectMapper;
 import com.ywgroup.iecloud.bagshare.dao.BagInfoMapper;
+import com.ywgroup.iecloud.bagshare.dao.BrandsMapper;
 import com.ywgroup.iecloud.bagshare.pojo.BagCollect;
 import com.ywgroup.iecloud.bagshare.pojo.BagInfo;
+import com.ywgroup.iecloud.bagshare.pojo.Brands;
 import com.ywgroup.iecloud.bagshare.service.ITransferBagInfoService;
 import com.ywgroup.iecloud.bagshare.util.StringTestUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,7 +31,8 @@ public class TransferBagInfoServiceImpl implements ITransferBagInfoService {
     private BagCollectMapper bagCollectMapper;
     @Autowired
     private BagInfoMapper bagInfoMapper;
-
+    @Autowired
+    private BrandsMapper brandsMapper;
 
     private List<String> getElementsContent(Elements elements) {
         List<String> stringList = new ArrayList<>();
@@ -112,4 +116,51 @@ public class TransferBagInfoServiceImpl implements ITransferBagInfoService {
             bagInfoMapper.insertSelective(bagInfo);
         }
     }
+
+    @Override
+    public void updateBagInfo(){
+        List<BagInfo> bagInfoList = bagInfoMapper.selectAll();
+        for (BagInfo b : bagInfoList){
+            String[] infos = b.getBagInformation().split(";");
+            for(int i=0;i<infos.length;i++){
+                String[] info = infos[i].split("：");
+                switch (info[0]) {
+                    case "商品名称":
+                        b.setName(info[1]);
+                        break;
+//                    case "商品产地":
+//                        b.setProduce(info[1]);
+//                        break;
+//                    case "颜色":
+//                        b.setColor(info[1]);
+//                        break;
+//                    case "材质":
+//                        b.setMaterial(info[1]);
+//                        break;
+//                    case "尺寸":
+//                        b.setSize(info[1]);
+//                        break;
+//                    case "功能":
+//                        b.setCategory(info[1]);
+//                        break;
+                    default:
+                        break;
+                }
+            }
+            bagInfoMapper.updateByPrimaryKey(b);
+        }
+    }
+
+    @Override
+    public void updateBagInfo2(){
+        List<BagInfo> bagInfoList = bagInfoMapper.selectAll();
+        for (BagInfo b : bagInfoList){
+            Integer bid = brandsMapper.selectIdByName(b.getBrand());
+            b.setBid(bid);
+            bagInfoMapper.updateByPrimaryKey(b);
+        }
+    }
 }
+
+
+
