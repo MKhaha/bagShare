@@ -28,23 +28,29 @@ public class FavouriteServiceImpl implements IFavouriteService{
 
     @Override
     public ServerResponse<String> favourite(Integer uid, Integer bid) {
-        String status = "0";
+       String status = "0";
         int a = favouriteMapper.selectByUidAndBid(uid,bid);
         if (a>0){
             int b = favouriteMapper.deleteByUidAndBid(uid,bid);
             if (b>0){
-                return ServerResponse.createByError("成功",status);
+                status ="0";
+                return ServerResponse.createBySuccess("成功",status);
             }
-            status = "1";
-            return ServerResponse.createBySuccess("失败",status);
+            else {
+                status = "1";
+                return ServerResponse.createByError("失败", status);
+            }
         }
         else {
             int b = favouriteMapper.insertByUidAndBid(uid,bid);
             if (b>0) {
                 status = "1";
-                return ServerResponse.createByError("成功", status);
+                return ServerResponse.createBySuccess("成功", status);
             }
-            return ServerResponse.createBySuccess("失败",status);
+            else {
+                status = "0";
+                return ServerResponse.createByError("失败",status);
+            }
         }
     }
 }
