@@ -18,6 +18,7 @@ public interface BagInfoMapper {
 
     int updateByPrimaryKey(BagInfo record);
 
+    int updateStatusById(Integer id);
 
     List<BagInfo> selectByPageNumber(Integer pagenumber);
 
@@ -25,4 +26,6 @@ public interface BagInfoMapper {
                                 @Param("start") Integer start, @Param("end") Integer end);
 
     List<BagInfo> selectAll();
+
+    String selectStatusById(Integer bid);
 }

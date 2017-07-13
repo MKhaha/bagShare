@@ -298,4 +298,15 @@
     FROM bag_information
   </select>
 
+  <update id="updateStatusById" parameterType="integer">
+    UPDATE bag_information
+    SET status = "1"
+    WHERE id = #{id}
+  </update>
+
+  <select id="selectStatusById" parameterType="integer" resultType="string">
+    SELECT status
+    FROM bag_information
+    WHERE id = #{bid}
+  </select>
 </mapper>

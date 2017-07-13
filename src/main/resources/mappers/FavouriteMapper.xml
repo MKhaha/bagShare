@@ -88,4 +88,11 @@
     insert into favourite(userid,bagid)
     VALUES (#{uid},#{bid});
   </insert>
+
+  <select id="selectByUid" parameterType="integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM favourite
+    WHERE userid = #{uid}
+  </select>
 </mapper>

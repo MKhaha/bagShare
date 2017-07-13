@@ -53,11 +53,11 @@ public class BagManageController {
     @RequestMapping("up.do")
     @ResponseBody
     public ServerResponse<String> updateBaginfo(){
-        iTransferBagInfo.updateBagInfo3();
+        iTransferBagInfo.updateBagInfo4();
         return ServerResponse.createBySuccessMessage("ok");
     }
 
-    //1.»ñµÃÊ×Ò³ÂÖ²¥Í¼ĞÅÏ¢
+    //1.è·å¾—é¦–é¡µè½®æ’­å›¾ä¿¡æ¯
     @RequestMapping(value = "getBanner.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<List<Banners>> getBanner(int pageSize){
@@ -65,7 +65,7 @@ public class BagManageController {
         return iBannersService.getBanner(pageSize);
     }
 
-    //2.»ñµÃÊ×Ò³ÍÆ¼öÉÌÆ·ĞÅÏ¢
+    //2.è·å¾—é¦–é¡µæ¨èå•†å“ä¿¡æ¯
     @RequestMapping(value = "getRecommend.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<List<Recommend>> getRecommend(int pageSize){
@@ -73,7 +73,7 @@ public class BagManageController {
         return iBagShare.getRecommend(pageSize);
     }
 
-    //3.Ê×Ò³ÏÔÊ¾ÉÌÆ·ĞÅÏ¢
+    //3.é¦–é¡µæ˜¾ç¤ºå•†å“ä¿¡æ¯
     @RequestMapping(value = "getLuxury.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<List<Luxury>> getLuxury(int pageSize){
@@ -81,21 +81,21 @@ public class BagManageController {
         return iBagShare.getLuxury(pageSize);
     }
 
-    //4.»ñµÃËùÓĞÆ·ÅÆ
+    //4.è·å¾—æ‰€æœ‰å“ç‰Œ
     @RequestMapping(value = "getBrands.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<List<Brands>> getBrands(){
         return iBransService.getAllBrands();
     }
 
-    //5.»ñÈ¡ÉÌÆ··ÖÀà
+    //5.è·å–å•†å“åˆ†ç±»
     @RequestMapping(value = "getGoodsCategory.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<List<Category>> getGoodsCategory(){
         return iCategoryService.selectAll();
     }
 
-    //6.»ñµÃÉÌÆ·ÁĞ±í£¨°´¼Û¸ñÅÅĞò£©
+    //6.è·å¾—å•†å“åˆ—è¡¨ï¼ˆæŒ‰ä»·æ ¼æ’åºï¼‰
     @RequestMapping(value = "getAllGoodsByPrice.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> getAllGoodsByPrice(@RequestParam(value = "types",defaultValue = "") Integer[] types,
@@ -128,28 +128,23 @@ public class BagManageController {
         return iBagShare.getBagInfoList(types,status,bid,start,end,pageNumber,pageSize);
     }
 
-    //7.»ñÈ¡ÉÌÆ·ĞÅÏ¢
+    //7.è·å–å•†å“ä¿¡æ¯
     @RequestMapping(value = "getGoodById.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<BagInfoVO> getGoodById(int id){
         return iBagShare.getGoodById(id);
     }
 
-    //8.»ñÈ¡ÉÌÆ·Í¼Æ¬
+    //8.è·å–å•†å“å›¾ç‰‡
 
-    //9.»ñÈ¡Æ·ÅÆĞÅÏ¢
+    //9.è·å–å“ç‰Œä¿¡æ¯
     @RequestMapping(value = "getBrandById.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<Brands> getBrandById(int id){
         return iBransService.getBrandsById(id);
     }
-//    @RequestMapping(value = "getBrandById.do",method = RequestMethod.POST)
-//    @ResponseBody
-//    public ServerResponse<Brands> getBrandById(String name){
-//        return iBransService.getBrandsById(name);
-//    }
 
-    //10.¼ì²éÊÇ·ñÒÑÊÕ²Ø
+    //10.æ£€æŸ¥æ˜¯å¦å·²æ”¶è—
     @RequestMapping(value = "isFavourite.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> isFavourite(int uid,int id){
@@ -157,7 +152,7 @@ public class BagManageController {
         return iFavouriteService.isFavourite(uid,id);
     }
 
-    //11.ÊÕ²Ø/È¡ÏûÊÕ²Ø
+    //11.æ”¶è—/å–æ¶ˆæ”¶è—
     @RequestMapping(value = "favourite.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> favourite(int uid,int id){

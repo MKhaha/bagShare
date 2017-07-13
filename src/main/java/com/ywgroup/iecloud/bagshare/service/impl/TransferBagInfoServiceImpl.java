@@ -11,6 +11,7 @@ import com.ywgroup.iecloud.bagshare.service.ITransferBagInfoService;
 import com.ywgroup.iecloud.bagshare.util.StringTestUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.formula.functions.T;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -170,6 +171,17 @@ public class TransferBagInfoServiceImpl implements ITransferBagInfoService {
         for (BagInfo b : bagInfoList){
             Integer cid = categoryMapper.selecyIdByName(b.getCategory());
             b.setCategoryid(cid);
+            bagInfoMapper.updateByPrimaryKey(b);
+        }
+    }
+
+    @Override
+    public void updateBagInfo4() {
+        List<BagInfo> bagInfoList = bagInfoMapper.selectAll();
+        for (BagInfo b : bagInfoList){
+            Double i = Double.valueOf(String.valueOf(b.getPrice().toString()));
+            b.setPriceya(new BigDecimal(Math.floor(i/5)));
+            b.setPricezu(new BigDecimal(Math.floor(i/50)));
             bagInfoMapper.updateByPrimaryKey(b);
         }
     }
