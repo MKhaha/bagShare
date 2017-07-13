@@ -22,8 +22,10 @@ public class FavouriteServiceImpl implements IFavouriteService{
         if (a>0){
             status = "1";
             return ServerResponse.createBySuccess("成功",status);
+        }else {
+            status = "0";
+            return ServerResponse.createByError("失败",status);
         }
-        return ServerResponse.createByError("失败",status);
     }
 
     @Override

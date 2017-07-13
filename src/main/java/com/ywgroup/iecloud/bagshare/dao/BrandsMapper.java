@@ -22,4 +22,5 @@ public interface BrandsMapper {
     Brands selectByName(String name);
 
     Integer selectIdByName(String name);
+
 }

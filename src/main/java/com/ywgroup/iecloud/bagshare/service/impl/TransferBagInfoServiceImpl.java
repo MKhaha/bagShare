@@ -3,6 +3,7 @@ package com.ywgroup.iecloud.bagshare.service.impl;
 import com.ywgroup.iecloud.bagshare.dao.BagCollectMapper;
 import com.ywgroup.iecloud.bagshare.dao.BagInfoMapper;
 import com.ywgroup.iecloud.bagshare.dao.BrandsMapper;
+import com.ywgroup.iecloud.bagshare.dao.CategoryMapper;
 import com.ywgroup.iecloud.bagshare.pojo.BagCollect;
 import com.ywgroup.iecloud.bagshare.pojo.BagInfo;
 import com.ywgroup.iecloud.bagshare.pojo.Brands;
@@ -33,6 +34,8 @@ public class TransferBagInfoServiceImpl implements ITransferBagInfoService {
     private BagInfoMapper bagInfoMapper;
     @Autowired
     private BrandsMapper brandsMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     private List<String> getElementsContent(Elements elements) {
         List<String> stringList = new ArrayList<>();
@@ -157,6 +160,16 @@ public class TransferBagInfoServiceImpl implements ITransferBagInfoService {
         for (BagInfo b : bagInfoList){
             Integer bid = brandsMapper.selectIdByName(b.getBrand());
             b.setBid(bid);
+            bagInfoMapper.updateByPrimaryKey(b);
+        }
+    }
+
+    @Override
+    public void updateBagInfo3() {
+        List<BagInfo> bagInfoList = bagInfoMapper.selectAll();
+        for (BagInfo b : bagInfoList){
+            Integer cid = categoryMapper.selecyIdByName(b.getCategory());
+            b.setCategoryid(cid);
             bagInfoMapper.updateByPrimaryKey(b);
         }
     }

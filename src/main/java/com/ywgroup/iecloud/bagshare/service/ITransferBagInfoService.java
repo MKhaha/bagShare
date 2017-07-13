@@ -7,4 +7,5 @@ public interface ITransferBagInfoService {
     void transferBagInfo();
     void updateBagInfo();
     void updateBagInfo2();
+    void updateBagInfo3();
 }

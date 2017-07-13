@@ -53,7 +53,7 @@ public class BagManageController {
     @RequestMapping("up.do")
     @ResponseBody
     public ServerResponse<String> updateBaginfo(){
-        iTransferBagInfo.updateBagInfo();
+        iTransferBagInfo.updateBagInfo3();
         return ServerResponse.createBySuccessMessage("ok");
     }
 
@@ -98,10 +98,32 @@ public class BagManageController {
     //6.获得商品列表（按价格排序）
     @RequestMapping(value = "getAllGoodsByPrice.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> getAllGoodsByPrice(String[] types,String status,int bid,
-                                                        int start, int end,
+    public ServerResponse<PageInfo> getAllGoodsByPrice(@RequestParam(value = "types",defaultValue = "") Integer[] types,
+                                                       @RequestParam(value = "status",defaultValue = "")String status,
+                                                       @RequestParam("bid") int bid,
+                                                       int start,
+                                                       int end,
                                                        @RequestParam(value="pageNumber",defaultValue = "1") int pageNumber,
                                                        @RequestParam(value="pageSize",defaultValue = "10") int pageSize){
+
+        if(org.apache.commons.lang3.ArrayUtils.isEmpty(types)&&org.apache.commons.lang3.StringUtils.isBlank(status)){
+            status = null;
+            Integer[] i = new Integer[5];
+            for (int j = 1;j<6;j++){
+                i[j-1] = j;
+            }
+            return iBagShare.getBagInfoList(i,status,bid,start,end,pageNumber,pageSize);
+        }
+        if(org.apache.commons.lang3.ArrayUtils.isEmpty(types)){
+            Integer[] i = new Integer[5];
+            for (int j = 1;j<6;j++){
+                i[j-1] = j;
+            }
+            return iBagShare.getBagInfoList(i,status,bid,start,end,pageNumber,pageSize);
+        }
+        if(org.apache.commons.lang3.StringUtils.isBlank(status)){
+            status = null;
+        }
 
         return iBagShare.getBagInfoList(types,status,bid,start,end,pageNumber,pageSize);
     }

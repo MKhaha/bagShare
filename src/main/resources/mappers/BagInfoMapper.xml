@@ -16,6 +16,7 @@
       <arg column="produce" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="color" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="material" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="categoryid" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="category" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="size" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -26,8 +27,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, bid, brand, pricezu, priceya, price, major_picture_address, minor_picture_address, 
-    bag_information, produce, color, material, category, size, content, status, create_time, 
-    update_time
+    bag_information, produce, color, material, categoryid, category, size, content, status, 
+    create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -44,16 +45,16 @@
       brand, pricezu, priceya, 
       price, major_picture_address, minor_picture_address, 
       bag_information, produce, color, 
-      material, category, size, 
-      content, status, create_time, 
-      update_time)
+      material, categoryid, category, 
+      size, content, status, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{bid,jdbcType=INTEGER}, 
       #{brand,jdbcType=VARCHAR}, #{pricezu,jdbcType=DECIMAL}, #{priceya,jdbcType=DECIMAL}, 
       #{price,jdbcType=DECIMAL}, #{majorPictureAddress,jdbcType=VARCHAR}, #{minorPictureAddress,jdbcType=VARCHAR}, 
       #{bagInformation,jdbcType=VARCHAR}, #{produce,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
-      #{material,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{material,jdbcType=VARCHAR}, #{categoryid,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ywgroup.iecloud.bagshare.pojo.BagInfo" >
     insert into bag_information
@@ -96,6 +97,9 @@
       </if>
       <if test="material != null" >
         material,
+      </if>
+      <if test="categoryid != null" >
+        categoryid,
       </if>
       <if test="category != null" >
         category,
@@ -156,6 +160,9 @@
       <if test="material != null" >
         #{material,jdbcType=VARCHAR},
       </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=INTEGER},
+      </if>
       <if test="category != null" >
         #{category,jdbcType=VARCHAR},
       </if>
@@ -215,6 +222,9 @@
       <if test="material != null" >
         material = #{material,jdbcType=VARCHAR},
       </if>
+      <if test="categoryid != null" >
+        categoryid = #{categoryid,jdbcType=INTEGER},
+      </if>
       <if test="category != null" >
         category = #{category,jdbcType=VARCHAR},
       </if>
@@ -250,6 +260,7 @@
       produce = #{produce,jdbcType=VARCHAR},
       color = #{color,jdbcType=VARCHAR},
       material = #{material,jdbcType=VARCHAR},
+      categoryid = #{categoryid,jdbcType=INTEGER},
       category = #{category,jdbcType=VARCHAR},
       size = #{size,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
@@ -271,12 +282,14 @@
     <include refid="Base_Column_List" />
     from bag_information
     WHERE
-     bid = #{bid}
-    AND status = #{status}
-    AND category IN
-    <foreach item="item" index="index" collection="types" open="(" separator="," close=")">
-      #{item}
-    </foreach>
+    bid = #{bid}
+    <if test="status != null">
+      AND status = #{status}
+    </if>
+      AND categoryid IN
+      <foreach item="item" index="index" collection="types" open="(" separator="," close=")">
+        #{item}
+      </foreach>
     AND price BETWEEN #{start} AND #{end}
   </select>
 
@@ -284,4 +297,5 @@
     SELECT <include refid="Base_Column_List"/>
     FROM bag_information
   </select>
+
 </mapper>

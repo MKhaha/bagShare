@@ -12,6 +12,7 @@ import com.ywgroup.iecloud.bagshare.pojo.vo.BagInfoVO;
 import com.ywgroup.iecloud.bagshare.pojo.vo.Luxury;
 import com.ywgroup.iecloud.bagshare.pojo.vo.Recommend;
 import com.ywgroup.iecloud.bagshare.service.IBagShareService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,9 +65,12 @@ public class BagShareServiceImpl implements IBagShareService{
         return ServerResponse.createByErrorMessage("失败");
     }
 
-    public ServerResponse<PageInfo> getBagInfoList(String[] types,String status,int bid,int start,int end,int pageNumber,int pageSize){
+
+
+
+    public ServerResponse<PageInfo> getBagInfoList(Integer[] types,String status,int bid,int start,int end,int pageNumber,int pageSize){
             PageHelper.startPage(pageNumber, pageSize);
-            List<String> ty = new ArrayList();
+            List<Integer> ty = new ArrayList();
             for (int i=0;i<types.length;i++){
                 ty.add(types[i]);
             }
@@ -81,6 +85,7 @@ public class BagShareServiceImpl implements IBagShareService{
                 bo.setPricezu(b.getPricezu());
                 bo.setPriceya(b.getPriceya());
                 bo.setStatus(b.getStatus());
+                bo.setContent(b.getContent());
                 bagBriefInfoVOList.add(bo);
             }
             PageInfo pageInfo = new PageInfo(bagInfoList);
@@ -112,7 +117,7 @@ public class BagShareServiceImpl implements IBagShareService{
                 bagInfoVO.setMaterial(bagInfo.getMaterial());
                 bagInfoVO.setSize(bagInfo.getSize());
                 bagInfoVO.setContent(bagInfo.getContent());
-                bagInfoVO.setStatus(bagInfo.getStatus());
+                bagInfoVO.setStatus(Integer.valueOf(bagInfo.getStatus()));
                 bagInfoVO.setBid(bagInfo.getBid());
                 return ServerResponse.createBySuccess("正常",bagInfoVO);
             }

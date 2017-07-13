@@ -30,6 +30,8 @@ public class BagInfo {
 
     private String material;
 
+    private Integer categoryid;
+
     private String category;
 
     private String size;
@@ -42,7 +44,7 @@ public class BagInfo {
 
     private Date updateTime;
 
-    public BagInfo(Integer id, String name, Integer bid, String brand, BigDecimal pricezu, BigDecimal priceya, BigDecimal price, String majorPictureAddress, String minorPictureAddress, String bagInformation, String produce, String color, String material, String category, String size, String content, String status, Date createTime, Date updateTime) {
+    public BagInfo(Integer id, String name, Integer bid, String brand, BigDecimal pricezu, BigDecimal priceya, BigDecimal price, String majorPictureAddress, String minorPictureAddress, String bagInformation, String produce, String color, String material, Integer categoryid, String category, String size, String content, String status, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.bid = bid;
@@ -56,6 +58,7 @@ public class BagInfo {
         this.produce = produce;
         this.color = color;
         this.material = material;
+        this.categoryid = categoryid;
         this.category = category;
         this.size = size;
         this.content = content;
@@ -170,6 +173,14 @@ public class BagInfo {
 
     public void setMaterial(String material) {
         this.material = material == null ? null : material.trim();
+    }
+
+    public Integer getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(Integer categoryid) {
+        this.categoryid = categoryid;
     }
 
     public String getCategory() {

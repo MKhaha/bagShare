@@ -14,6 +14,6 @@ import java.util.List;
 public interface IBagShareService {
     ServerResponse<List<Recommend>> getRecommend(int pagesize);
     ServerResponse<List<Luxury>> getLuxury(int pagesize);
-    ServerResponse<PageInfo> getBagInfoList(String[] types,String status,int bid,int start,int end, int pageNumber, int pageSize);
+    ServerResponse<PageInfo> getBagInfoList(Integer[] types,String status,int bid,int start,int end, int pageNumber, int pageSize);
     ServerResponse<BagInfoVO> getGoodById(int id);
 }
