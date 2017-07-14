@@ -148,7 +148,6 @@ public class BagManageController {
     @RequestMapping(value = "isFavourite.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> isFavourite(int uid,int id){
-        uid = 1;
         return iFavouriteService.isFavourite(uid,id);
     }
 
@@ -156,7 +155,6 @@ public class BagManageController {
     @RequestMapping(value = "favourite.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> favourite(int uid,int id){
-        uid = 1;
         return iFavouriteService.favourite(uid,id);
     }
 

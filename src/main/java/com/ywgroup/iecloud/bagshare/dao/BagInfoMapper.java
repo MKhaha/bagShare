@@ -20,6 +20,8 @@ public interface BagInfoMapper {
 
     int updateStatusById(Integer id);
 
+    int updateStatusById2(Integer id);
+
     List<BagInfo> selectByPageNumber(Integer pagenumber);
 
     List<BagInfo> selectByPrice(@Param("types")List<Integer> types, @Param("status")String status, @Param("bid")Integer bid,

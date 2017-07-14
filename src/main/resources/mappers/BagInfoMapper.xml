@@ -282,14 +282,16 @@
     <include refid="Base_Column_List" />
     from bag_information
     WHERE
-    bid = #{bid}
+    categoryid IN
+    <foreach item="item" index="index" collection="types" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    <if test="bid != 0">
+      AND bid = #{bid}
+    </if>
     <if test="status != null">
       AND status = #{status}
     </if>
-      AND categoryid IN
-      <foreach item="item" index="index" collection="types" open="(" separator="," close=")">
-        #{item}
-      </foreach>
     AND price BETWEEN #{start} AND #{end}
   </select>
 
@@ -301,6 +303,12 @@
   <update id="updateStatusById" parameterType="integer">
     UPDATE bag_information
     SET status = "1"
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateStatusById2" parameterType="integer">
+    UPDATE bag_information
+    SET status = "0"
     WHERE id = #{id}
   </update>
 
