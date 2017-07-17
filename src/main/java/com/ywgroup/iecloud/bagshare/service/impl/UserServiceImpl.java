@@ -124,7 +124,10 @@ public class UserServiceImpl implements IUserService {
     public ServerResponse<PaymentsVO> updatePayment(Integer id, Integer type) {
         Payment payment = paymentMapper.selectByPrimaryKey(id);
         if((payment.getType()==1&&type==0)||(payment.getType()==4&&type==5)){
-            bagInfoMapper.updateStatusById2(id);
+            bagInfoMapper.updateStatusById2(payment.getBid());
+        }
+        if((payment.getType()==0&&type==1)||(payment.getType()==5&&type==1)){
+            bagInfoMapper.updateStatusById(payment.getBid());
         }
         BagInfo bagInfo = bagInfoMapper.selectByPrimaryKey(payment.getBid());
         payment.setType(type);
