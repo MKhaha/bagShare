@@ -123,4 +123,11 @@
     from bag_collect
   </select>
 
+  <select id="selectByPageNumber" resultMap="BaseResultMap" parameterType="integer">
+    select
+    <include refid="Base_Column_List" />
+    from bag_collect
+    order by rand() limit #{pagenumber}
+  </select>
+
 </mapper>

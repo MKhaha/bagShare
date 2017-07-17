@@ -18,4 +18,6 @@ public interface BagCollectMapper {
     int updateByPrimaryKey(BagCollect record);
 
     List<BagCollect> selectAll();
+
+    List<BagCollect> selectByPageNumber(Integer pagenumber);
 }

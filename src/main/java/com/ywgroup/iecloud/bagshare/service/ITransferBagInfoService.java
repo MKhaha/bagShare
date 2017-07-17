@@ -5,4 +5,8 @@ package com.ywgroup.iecloud.bagshare.service;
  */
 public interface ITransferBagInfoService {
     void transferBagInfo();
+    void updateBagInfo();
+    void updateBagInfo2();
+    void updateBagInfo3();
+    void updateBagInfo4();
 }
